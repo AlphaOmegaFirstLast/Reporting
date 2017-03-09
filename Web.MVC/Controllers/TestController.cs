@@ -50,7 +50,7 @@ namespace Web.MVC.Controllers
             try
             {
                 var resultCriteria = _reportEngine.BuildQuery(criteria);
-                var resultQuery = await _reportEngine.ExecuteQuery(resultCriteria.SqlStatement, resultCriteria.SqlParameters);
+                var resultQuery = await _reportEngine.ExecuteQuery<string>(resultCriteria.SqlStatement, resultCriteria.SqlParameters);
 
                 var doc = new XmlDocument();
                 doc.LoadXml(resultQuery);
@@ -60,10 +60,11 @@ namespace Web.MVC.Controllers
                 var jsonText = Regex.Replace(jsonResult, "(?<=\")(@)(?!.*\":\\s )", string.Empty, RegexOptions.IgnoreCase);
 
                 apiResponse.Data = jsonText;
+                apiResponse.Pagination = await _reportEngine.GetPaginationInfo(criteria);
             }
             catch (Exception e)
             {
-                apiResponse.Status.SetError(1,"Error GetReports",e);
+                apiResponse.Status.SetError(1,"Error GetReports: ",e);
             }
             return apiResponse;
 

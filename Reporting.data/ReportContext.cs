@@ -44,9 +44,9 @@ namespace Reporting.data
 
         }
 
-        public async Task<string> SqlQuerySerialized(string sql, params object[] parameters)
+        public async Task<T> SqlQuerySerialized<T>(string sql, params object[] parameters)
         {
-            return await Database.SqlQuery<string>(sql, parameters).FirstAsync();
+            return await Database.SqlQuery<T>(sql, parameters).FirstAsync();
 
         }
 

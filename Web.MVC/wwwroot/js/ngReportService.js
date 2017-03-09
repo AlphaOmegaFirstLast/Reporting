@@ -26,11 +26,16 @@
         //-- -------------------------------------------- --
 
         this.Criteria = function () {
-            var objCriteria = { Title: "", mainTable: "", mainTablePrimaryKey:"", DisplayFields: [], ValueFilters: [], RangeFilters: [], GroupBy: [], OrderBy: [] };
+            var objCriteria = { Title: "", mainTable: "", mainTablePrimaryKey: ""
+                              , DisplayFields: [], ValueFilters: [], RangeFilters: [], GroupBy: [], OrderBy: []
+                              , recordsPerPage:1 , currentPage:3
+            };
 
             objCriteria.Title = this.title;
             objCriteria.mainTable = this.mainTable;
             objCriteria.mainTablePrimaryKey = this.mainTablePrimaryKey;
+            objCriteria.recordsPerPage = this.recordsPerPage;
+            objCriteria.currentPage = this.currentPage;
 
             var groupByField = { Field: this.GroupBy.field, Caption: this.GroupBy.caption };
             objCriteria.GroupBy.push(groupByField);

@@ -19,22 +19,29 @@ namespace Reporting.data
             _reportContext = reportingContext;
         }
 
-        public async Task<string> ExecuteQuery(string sql, params object[] parameters)
+        public async Task<T> ExecuteQuery<T>(string sql, params object[] parameters)
         {
-            return await _reportContext.SqlQuerySerialized(sql, parameters);
+            return await _reportContext.SqlQuerySerialized<T>(sql, parameters);
         }
 
-        public BuildQueryResult BuildQuery(ReportCriteria criteria)
+        public BuildQueryResult BuildQuery(ReportCriteria criteria, bool onlyRecordsCount = false)
         {
             var sqlStatement = new StringBuilder();
             var queryParametersList = new List<Object>();
             //Select -------------------------------------------------
 
-            var selectFields = GetCriteriaSelect(criteria);
-            if (!string.IsNullOrEmpty(selectFields))
+            if (onlyRecordsCount)
             {
-                sqlStatement.Append(" Select ");
-                sqlStatement.AppendLine(selectFields);
+                sqlStatement.Append(" Select Count(*) ");
+            }
+            else
+            {
+                var selectFields = GetCriteriaSelect(criteria);
+                if (!string.IsNullOrEmpty(selectFields))
+                {
+                    sqlStatement.Append(" Select ");
+                    sqlStatement.AppendLine(selectFields);
+                }
             }
 
             //From ---------------------------------------------------
@@ -51,34 +58,49 @@ namespace Reporting.data
                 sqlStatement.Append(whereFields);
             }
 
-            //Group By ------------------------------------------------
-
-            var groupFields = GetCriteriaGroup(criteria);
-            if (!string.IsNullOrEmpty(groupFields))
+            if (!onlyRecordsCount)
             {
-                sqlStatement.AppendLine(" Order By ");
-                sqlStatement.Append(groupFields);
+                //Group By ------------------------------------------------
+
+                var groupFields = GetCriteriaGroup(criteria);
+                if (!string.IsNullOrEmpty(groupFields))
+                {
+                    sqlStatement.AppendLine(" Order By ");
+                    sqlStatement.Append(groupFields);
+                }
+
+                //Order By ------------------------------------------------
+
+                var orderFields = GetCriteriaOrder(criteria);
+                if (!string.IsNullOrEmpty(orderFields))
+                {
+                    sqlStatement.AppendLine(string.IsNullOrEmpty(groupFields) ? " Order By " : " , ");
+                    sqlStatement.Append(orderFields);
+                }
+                sqlStatement.AppendLine(string.IsNullOrEmpty(groupFields) && string.IsNullOrEmpty(orderFields) ? $" Order By {criteria.MainTablePrimaryKey} " : "");
+
+                //Skip/Take Rows ------------------------------------------
+
+                var currentPage = criteria.CurrentPage <= 0 ? 1 : criteria.CurrentPage;
+                var skip = (currentPage - 1) * criteria.RecordsPerPage;
+                var take = criteria.RecordsPerPage;
+                sqlStatement.AppendLine($" Offset {skip} Rows");
+                sqlStatement.AppendLine($" Fetch Next {take} Rows Only");
+                sqlStatement.AppendLine($" FOR XML RAW ('record'), ROOT ('records')");
             }
 
-            //Order By ------------------------------------------------
+            return new BuildQueryResult() { SqlStatement = sqlStatement.ToString(), SqlParameters = queryParametersList.ToArray() };
+        }
 
-            var orderFields = GetCriteriaOrder(criteria);
-            if (!string.IsNullOrEmpty(orderFields))
-            {
-                sqlStatement.AppendLine(string.IsNullOrEmpty(groupFields) ? " Order By " : " , ");
-                sqlStatement.Append(orderFields);
-            }
-            sqlStatement.AppendLine(string.IsNullOrEmpty(groupFields) && string.IsNullOrEmpty(orderFields) ? $" Order By {criteria.MainTablePrimaryKey} " : "");
-
-            //Skip/Take Rows ------------------------------------------
-            var currentPage = criteria.CurrentPage <= 0 ? 1 : criteria.CurrentPage;
-            var skip = (currentPage - 1) * criteria.RecordsPerPage;
-            var take = criteria.RecordsPerPage;
-            sqlStatement.AppendLine($" Offset {skip} Rows");
-            sqlStatement.AppendLine($" Fetch Next {take} Rows Only");
-            sqlStatement.AppendLine($" FOR XML RAW ('record'), ROOT ('records')");
-
-            return new BuildQueryResult() {SqlStatement = sqlStatement.ToString(), SqlParameters = queryParametersList.ToArray() };
+        public async Task<PaginationInfo> GetPaginationInfo(ReportCriteria criteria)
+        {
+            var resultCriteria = BuildQuery(criteria, true);
+            var resultQuery = await ExecuteQuery<int>(resultCriteria.SqlStatement, resultCriteria.SqlParameters);
+            var paginationInfo = new PaginationInfo();
+            paginationInfo.TotalRecCount = resultQuery;
+            paginationInfo.TotalPageCount = (int) Math.Ceiling ((double)paginationInfo.TotalRecCount / criteria.RecordsPerPage) ;
+            paginationInfo.CurrentPage = criteria.CurrentPage;
+            return paginationInfo;
         }
 
         private string GetCriteriaSelect(ReportCriteria criteria)
