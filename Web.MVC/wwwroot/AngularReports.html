@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html ng-app="appReportEmployee"  ng-controller="controllerReportEmployee as controllerCriteria">
+<head>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+    <script src="js/Global.js"></script>
+    <script src="js/ngCriteriaField.js"></script>
+    <script src="js/ngReportService.js"></script>
+    <script src="js/ngEmployeeReport.js"></script>
+
+</head>
+<body>
+<div id="show-checkboxes" class="row">
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showMessage" ng-init="showMessage = false" />Show error message
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showReportControls" ng-init="showReportControls = false" />Show Report Controls
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showSearchControls" ng-init="showSearchControls = false"/>Show Search Controls
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showTestControls" ng-init="showTestControls = true" />Show Test Controls
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showCriteriaControls" ng-init="showCriteriaControls = true" />Show Criteria Controls
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="showResultControls" ng-init="showResultControls = true" />Show Result Controls
+    </div>
+</div>
+<div id="dvMessage" ng-if="showMessage"></div>
+
+<div id="report-controls" class="row" ng-if="showReportControls">
+    <div class="col-sm-2">
+        <label>Reports:</label>
+    </div>
+    <div class="col-sm-10">
+        <input type="button" class="btn btn-default testButtonMargin" value="Preview to Print"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Print"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Save Criteria"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Export Data"/>
+    </div>
+</div>
+<div id="search-controls" class="row" ng-if="showSearchControls">
+    <div class="col-sm-2">
+        <label>Search: {{controllerCriteria.selectedId}}</label>
+    </div>
+    <div class="col-sm-10">
+        <input type="button" class="btn btn-default testButtonMargin" value="Preview to Select" ng-click="controllerCriteria.preview()"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Select"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Cancel"/>
+    </div>
+</div>
+<div id="test-controls" class="row"  ng-if="showTestControls">
+    <div class="col-sm-2">
+        <label>Test Controls:</label>
+    </div>
+    <div class="col-sm-10">
+        <input type="button" class="btn btn-default testButtonMargin" value="Show Criteria" ng-click="controllerCriteria.showCriteria()"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Show Sql" ng-click="controllerCriteria.showSql()"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Show Xml" ng-click="controllerCriteria.showXml()"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Show Json" ng-click="controllerCriteria.showJson()"/>
+        <input type="button" class="btn btn-default testButtonMargin" value="Show Report" ng-click="controllerCriteria.showReport()"/>
+    </div>
+</div>
+
+<div id="criteria-controls" class="row" ng-if="showCriteriaControls">
+    <div class="col-sm-2">
+        <span>Display Fields</span>
+        <hr />
+        <table>
+            <tr ng-repeat="field in controllerCriteria.CriteriaFields">
+                <td> <input type="checkbox" ng-model="field.isDisplayChecked" ng-disabled="field.isDisplayDisabled" /></td>
+                <td> {{field.caption}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-3">
+        Value Filters
+        <hr />
+        <table>
+            <tr ng-repeat="field in controllerCriteria.CriteriaFields | filter:{isValueFilter:true}">
+                <td>
+                    <input type="checkbox" ng-model="field.isFilterChecked" ng-click="controllerCriteria.clickValueFilter(field)" ng-disabled="field.isFilterDisabled" />
+                </td>
+                <td>
+                    {{field.caption}}
+                </td>
+                <td>
+                    <input type="text" ng-model="field.filterControlValue" ng-disabled="controllerCriteria.not(field.isFilterChecked)" />
+                </td>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <span>Range Filters</span>
+        <hr />
+        <div ng-repeat="field in controllerCriteria.CriteriaFields  | filter:{isRangeFilter:true}">
+            <div class="row">
+                <div class="col-sm-1">
+                    <input type="checkbox" ng-model="field.isFilterChecked" ng-disabled="field.isFilterDisabled" />
+                </div>
+                <div class="col-sm-3">
+                    {{field.caption}}
+                </div>
+                <div class="col-sm-8">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    From
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" ng-model="field.filterControlFromValue" ng-disabled="controllerCriteria.not(field.isFilterChecked)" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    To
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" ng-model="field.filterControlToValue" ng-disabled="controllerCriteria.not(field.isFilterChecked)" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <span>Group By</span>
+        <hr />
+        <table>
+            <tr ng-repeat="field in controllerCriteria.CriteriaFields">
+                <td>
+                    <input type="radio" ng-model="controllerCriteria.GroupBy" ng-value="field.field" ng-click="controllerCriteria.clickGroupBy(field)" ng-selected="field.isGroupChecked" ng-disabled="field.isGroupDisabled" />
+                </td>
+                <td>
+                    {{field.caption}}
+                </td>
+        </table>
+        <hr />
+        <span>Summary Type</span>
+    </div>
+    <div class="col-sm-1">
+        <span>Order By</span>
+        <hr />
+        <table>
+            <tr ng-repeat="field in controllerCriteria.CriteriaFields">
+                <td>
+                    <input type="radio" ng-model="controllerCriteria.OrderBy" ng-value="field.field" ng-click="controllerCriteria.clickOrderBy(field)" ng-selected="field.isOrderChecked" ng-disabled="field.isOrderDisabled" />
+                </td>
+                <td>
+                    {{field.caption}}
+                </td>
+        </table>
+    </div>
+</div>
+
+<div id="resultset-titles"class="info text-center" ng-if="showResultControls">
+    <table class="table table-condensed">
+        <tr>
+            <td>{{controllerCriteria.title}}</td>
+        </tr>
+        <tr ng-if="controllerCriteria.resultCriteria.valueFilters!=null" ng-repeat="filter in controllerCriteria.resultCriteria.valueFilters">
+            <td>Filtered by {{filter.caption}} = {{filter.value}}</td>
+        </tr>
+        <tr ng-if="controllerCriteria.resultCriteria.rangeFilters!=null" ng-repeat="filter in controllerCriteria.resultCriteria.rangeFilters">
+            <td>Filtered by {{filter.caption}} from {{filter.fromValue}} to {{filter.toValue}}</td>
+        </tr>
+        <tr ng-if="controllerCriteria.ShowInReportHeader(controllerCriteria.resultCriteria.groupBy)" ng-repeat="field in controllerCriteria.resultCriteria.groupBy">
+            <td>Grouped by {{field.caption}}</td>
+        </tr>
+        <tr ng-if="controllerCriteria.ShowInReportHeader(controllerCriteria.resultCriteria.orderBy)" ng-repeat="field in controllerCriteria.resultCriteria.orderBy">
+            <td>Ordered by {{field.caption}}</td>
+        </tr>
+    </table>
+</div>
+
+<div id="resultset-columns" ng-if="showResultControls">
+    <div id="paginator">
+        Current Page <input type="text" class="text-center" ng-model="controllerCriteria.currentPage" />
+        <br/>
+        Records Per Page<input type="text" class="text-center" ng-model="controllerCriteria.recordsPerPage" ng-change="paginationChanged"/>
+
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr class="success">
+            <th ng-if="controllerCriteria.resultCriteria.displayFields!=null" ng-repeat="field in controllerCriteria.resultCriteria.displayFields">{{field.caption}}</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="record in controllerCriteria.resultSet.record">
+            <td ng-if="controllerCriteria.resultCriteria.displayFields!=null" ng-repeat="field in controllerCriteria.resultCriteria.displayFields" ng-click="controllerCriteria.select(record.Id)">
+                {{record[field.field]}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="test-panel" ng-if="showTestControls">
+    <textarea id="testPane" rows="10" cols="110"></textarea>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EndPoints>
+  <!-- .............................................................................................................
+  -->
+  <EndPoint Name="GetAppiaActiveAll"    HttpMethod="Get" >
+    <apiMethod><![CDATA[https://via.appia.com/ext/api/campaigns/manual?status=Active&offset=0&limit=3]]></apiMethod>
+    <Headers>
+      <Header key="Authorization" value="Basic YXBwcmVjQGRpZ2l0YWx0dXJiaW5lLmNvbTphcHBpYUNQSQ=="/>
+      <Header key="Accept" value="application/vnd.appia+json"/>
+    </Headers>
+  </EndPoint>
+  <!-- .............................................................................................................
+  -->
+  <EndPoint Name="GetAppia1Campaign"     HttpMethod="Get">
+    <apiMethod><![CDATA[https://via.appia.com/ext/api/campaigns/manual/#APPIACAMPAIGNID#?status=Active&offset=0]]></apiMethod>
+    <Headers>
+      <Header key="Authorization" value="Basic YXBwcmVjQGRpZ2l0YWx0dXJiaW5lLmNvbTphcHBpYUNQSQ=="/>
+      <Header key="Accept" value="application/vnd.appia+json"/>
+    </Headers>
+  </EndPoint>
+  <!-- .............................................................................................................
+  -->
+  <EndPoint Name="GetHasOffersAll"       HttpMethod="Get">
+    <apiMethod><![CDATA[http://api.hasoffers.com/v3/Offer.json?Method=findAll&NetworkToken=NETyDKV6VmUTuw9SbgsE0lo7jDkzlC&NetworkId=digitalturbine&contain[]=Country&contain[]=Advertiser&limit=#COUNT#]]></apiMethod>
+  </EndPoint>
+  <!-- .............................................................................................................
+  -->
+</EndPoints>
+
