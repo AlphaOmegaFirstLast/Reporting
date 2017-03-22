@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Reporting.data.Models
+namespace Bepos.Reporting.Engine.Models
 {
     public class ReportCriteria
     {

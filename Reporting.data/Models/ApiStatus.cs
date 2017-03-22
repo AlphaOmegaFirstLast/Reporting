@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Reporting.data.Models
+namespace Bepos.Reporting.Engine.Models
 {
     public class ApiStatus
     {

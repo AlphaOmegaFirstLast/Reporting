@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bussiness.Models;
-using Reporting.data.Models;
-using System.Data.SqlClient;
 using DbContext = System.Data.Entity.DbContext;
 
-namespace Reporting.data
+namespace Bepos.Reporting.Engine
 {
 
     public class ReportContext : DbContext

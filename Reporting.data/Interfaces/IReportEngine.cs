@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Reporting.data.Models;
+﻿using System.Threading.Tasks;
+using Bepos.Reporting.Engine.Models;
 
-namespace Reporting.data.Interfaces
+namespace Bepos.Reporting.Engine.Interfaces
 {
     public interface IReportEngine
     {

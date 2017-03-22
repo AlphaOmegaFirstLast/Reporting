@@ -1,0 +1,16 @@
+#:C:\Suzette\personal\Reporting\Infrastructure.UnitTests\Infrastructure.UnitTests.xproj
+C:\Suzette\personal\Reporting\Infrastructure.UnitTests\Infrastructure.UnitTests.xproj|C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj
+C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj|C:\Suzette\personal\Reporting\Infrastructure.Models\Infrastructure.Models.xproj
+#:C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj
+C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj|C:\Suzette\personal\Reporting\Infrastructure.Models\Infrastructure.Models.xproj
+#:C:\Suzette\personal\Reporting\GeneralUI\GeneralUI.xproj
+C:\Suzette\personal\Reporting\GeneralUI\GeneralUI.xproj|C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj
+C:\Suzette\personal\Reporting\src\Infrastructure\Infrastructure.xproj|C:\Suzette\personal\Reporting\Infrastructure.Models\Infrastructure.Models.xproj
+#:C:\Suzette\personal\Reporting\Infrastructure.Models\Infrastructure.Models.xproj
+#:C:\Suzette\personal\Reporting\Reporting.data\Reporting.Data.xproj
+C:\Suzette\personal\Reporting\Reporting.data\Reporting.Data.xproj|C:\Suzette\personal\Reporting\Bussiness.Models\Bussiness.Models.xproj
+#:C:\Suzette\personal\Reporting\Web.MVC\Web.MVC.xproj
+C:\Suzette\personal\Reporting\Web.MVC\Web.MVC.xproj|C:\Suzette\personal\Reporting\Bussiness.Models\Bussiness.Models.xproj
+C:\Suzette\personal\Reporting\Web.MVC\Web.MVC.xproj|C:\Suzette\personal\Reporting\Reporting.data\Reporting.Data.xproj
+C:\Suzette\personal\Reporting\Reporting.data\Reporting.Data.xproj|C:\Suzette\personal\Reporting\Bussiness.Models\Bussiness.Models.xproj
+#:C:\Suzette\personal\Reporting\Bussiness.Models\Bussiness.Models.xproj

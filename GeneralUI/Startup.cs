@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Infrastructure.Factories;
+﻿using Infrastructure.Factories;
 using Infrastructure.Interfaces.IFactories;
 using Infrastructure.Interfaces.IManagers;
 using Infrastructure.Interfaces.IServices;
@@ -15,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace GeneralUI
+namespace TestUI
 {
     public class Startup
     {

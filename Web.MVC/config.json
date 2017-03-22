@@ -1,5 +1,5 @@
 ﻿{
   "Data": {
-    "ConnectionString": "Server=Suzette-PC\\SQLEXPRESS; Database=Test; Trusted_Connection=True;"
+    "ConnectionString": "Server=DESKTOP-0U8ISNF\\SQLEXPRESS; Database=Test; Trusted_Connection=True;"
   }
 }

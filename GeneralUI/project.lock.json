@@ -3230,7 +3230,7 @@
       ]
     },
     "NLog.Extensions.Logging/1.0.0-rtm-alpha4": {
-      "sha512": "hFVRGr94j+yo26zCF0VZcwCvCcYsG2GPQuUoqcvhVtxOadDroT04DiTRjCCrJ7d3GDfDoTNHAkjtXPUZxSSaTQ==",
+      "sha512": "JnFfDSMKCzOivmqKW6iZLXofINUUZWGgOWavamnsjacLRrNiT0uof3uIh8oqo4RXjrOdhg5cSRnQcpZ4YrSaWw==",
       "type": "package",
       "path": "NLog.Extensions.Logging/1.0.0-rtm-alpha4",
       "files": [

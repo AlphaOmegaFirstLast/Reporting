@@ -3112,7 +3112,7 @@
     "NLog.Extensions.Logging/1.0.0-rtm-alpha4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hFVRGr94j+yo26zCF0VZcwCvCcYsG2GPQuUoqcvhVtxOadDroT04DiTRjCCrJ7d3GDfDoTNHAkjtXPUZxSSaTQ=="
+      "sha512": "sha512-JnFfDSMKCzOivmqKW6iZLXofINUUZWGgOWavamnsjacLRrNiT0uof3uIh8oqo4RXjrOdhg5cSRnQcpZ4YrSaWw=="
     },
     "NLog.Web.AspNetCore/4.2.4": {
       "type": "package",

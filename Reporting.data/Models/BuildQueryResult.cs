@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Reporting.data.Models
+﻿namespace Bepos.Reporting.Engine.Models
 {
     public class BuildQueryResult
     {

@@ -1117,7 +1117,7 @@
       ]
     },
     "dotnet-test-nunit/3.4.0-beta-1": {
-      "sha512": "np5NVLo/fLbxIYvD/xFu2EtqTy7DAr0rnmNKwc8dGiktQd4H9g26sEzagD4ZlxKv9Bhs1jEbvU5RH8KnbPNufg==",
+      "sha512": "ZPG1+TWadbMIap0H55ZezNNPXcnLD1vU3Yc5hrrvqKZqkoEWfpel9bEIdLX4rbur7r8tREOCC3UippqabRztVg==",
       "type": "package",
       "path": "dotnet-test-nunit/3.4.0-beta-1",
       "files": [
@@ -1496,7 +1496,7 @@
       ]
     },
     "NUnit.Portable.Agent/3.4.0-beta-1": {
-      "sha512": "ptTCJgdzLcTeSjLa7SOMV3x9GmJUB61c0SIFc6/LGTfhrJ2pZZtqOSSkGPyJpcN+HDQaBh69WmeWKQHoyGbokw==",
+      "sha512": "lYmhh1Qk95XQNe1zySqOQxJPE6F/RRUqKWNQwtRTp4eTRmn4TT3it5NAlujHPwH0gpvF+paQ2AhOObHkiqTJmA==",
       "type": "package",
       "path": "NUnit.Portable.Agent/3.4.0-beta-1",
       "files": [

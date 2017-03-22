@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Bepos.Reporting.Engine.Interfaces;
+using Bepos.Reporting.Engine.Models;
 using Bussiness.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Newtonsoft.Json;
 using NuGet.Protocol.Core.v3;
-using Reporting.data;
-using Reporting.data.Interfaces;
-using Reporting.data.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

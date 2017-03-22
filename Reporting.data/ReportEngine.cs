@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Reporting.data.Interfaces;
-using Reporting.data.Models;
+using Bepos.Reporting.Engine.Interfaces;
+using Bepos.Reporting.Engine.Models;
 
-namespace Reporting.data
+namespace Bepos.Reporting.Engine
 {
     public class ReportEngine : IReportEngine
     {

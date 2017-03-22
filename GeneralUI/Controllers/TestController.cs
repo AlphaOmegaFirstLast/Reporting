@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Infrastructure.Interfaces.IManagers;
-using Infrastructure.Managers;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace GeneralUI.Controllers
+namespace TestUI.Controllers
 {
     [Route("api/[controller]")]
     public class TestController : Controller
