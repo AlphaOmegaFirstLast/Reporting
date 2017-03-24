@@ -1,0 +1,103 @@
+﻿@model Bussiness.Models.Employee
+@{
+    ViewBag.Title = "Edit Employee";
+}
+<div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+
+        <form asp-controller="Employee" asp-action="Update" method="POST" asp-route-id="@Model.Id" class="input-sm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group input-group-sm">
+                <label asp-for="DepartmentId"></label>
+                <select asp-for="DepartmentId" asp-items="@ViewBag.Departments" class="form-control"></select>
+                <span asp-validation-for="Password" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-sm">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text text-danger"></span>
+            </div>
+
+            <div class="form-group input-group-sm">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-xs">
+                <label asp-for="Address" class="text-"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-sm">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-sm">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" class="form-control" placeholder="333-333-4444" />
+                <span asp-validation-for="Phone" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-sm">
+                <label asp-for="WebSite"></label>
+                <input asp-for="WebSite" class="form-control" />
+                <span asp-validation-for="WebSite" class="text text-danger"></span>
+            </div>
+            <div class="form-inline">
+                <label asp-for="Salary"></label>
+                <div class="input-group-addon ">$</div>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text text-danger"></span>
+            </div>
+            <div class="form-group input-group-sm">
+                <label asp-for="Level"></label>
+                <input asp-for="Level" class="form-control" type="range" />
+                <span asp-validation-for="Level" class="text text-danger"></span>
+            </div>
+
+            <div class="form-group input-group-sm">
+
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text text-danger"></span>
+            </div>
+
+            <div class="form-group input-group-sm">
+                <label asp-for="GraduationDate"></label>
+                <input asp-for="GraduationDate" class="form-control" />
+                <span asp-validation-for="GraduationDate" class="text text-danger"></span>
+            </div>
+
+            <div class="form-group  input-group-xs">
+                <label asp-for="Experience"></label>
+                <textarea asp-for="Experience" class="form-control"></textarea>
+                <span asp-validation-for="Experience" class="text text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-default">Update</button>
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('forms-ext', { types: 'date' });
+        webshims.polyfill('forms forms-ext');
+        $.webshims.formcfg = {
+            en: {
+                dFormat: '-',
+                dateSigns: '-',
+                patterns: {
+                    d: "dd-mm-yy"
+                }
+            }
+        };
+    </script>
+}
