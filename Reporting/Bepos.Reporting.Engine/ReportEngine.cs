@@ -107,6 +107,7 @@ namespace Bepos.Reporting.Engine
             var commaPlaceHolder = string.Empty;
             foreach (var displayField in criteria.DisplayFields)
             {
+                if (displayField.Field == "default") continue;
                 sbSelectFields.Append(commaPlaceHolder);
                 if (!string.IsNullOrEmpty(displayField.LookupTable) && !string.IsNullOrEmpty(displayField.LookupField))
                     sbSelectFields.Append($"[{displayField.LookupTable}].[{displayField.LookupField}] as [{displayField.Caption}]");
@@ -161,7 +162,7 @@ namespace Bepos.Reporting.Engine
             foreach (var valueFilter in criteria.ValueFilters)
             {
                 sbWhereFields.Append(commaPlaceHolder);
-                sbWhereFields.Append($"{valueFilter.Field} = @p_{valueFilter.Field}");
+                sbWhereFields.Append($" {criteria.MainTable}.{valueFilter.Field} = @p_{valueFilter.Field}");
                 commaPlaceHolder = " and ";
                 queryParametersList.Add(new SqlParameter($"p_{valueFilter.Field}", valueFilter.Value));
             }
@@ -169,7 +170,7 @@ namespace Bepos.Reporting.Engine
             foreach (var rangeFilter in criteria.RangeFilters)
             {
                 sbWhereFields.Append(commaPlaceHolder);
-                sbWhereFields.Append($" {rangeFilter.Field} >= {rangeFilter.FromValue} and {rangeFilter.Field} <= {rangeFilter.ToValue} ");
+                sbWhereFields.Append($"  {criteria.MainTable}.{rangeFilter.Field} >= {rangeFilter.FromValue} and {criteria.MainTable}.{rangeFilter.Field} <= {rangeFilter.ToValue} ");
                 commaPlaceHolder = " and ";
             }
 
@@ -182,11 +183,18 @@ namespace Bepos.Reporting.Engine
             var commaPlaceHolder = string.Empty;
             foreach (var groupField in criteria.GroupBy)
             {
+              if (!string.IsNullOrEmpty(groupField.Field))
+              {
                 if (groupField.Field == "default") continue;
 
-                sbGroupFields.Append(commaPlaceHolder);
-                sbGroupFields.Append(groupField.Field);
-                commaPlaceHolder = ", ";
+                  sbGroupFields.Append(commaPlaceHolder);
+                  if (!string.IsNullOrEmpty(groupField.LookupTable) && !string.IsNullOrEmpty(groupField.LookupField))
+                    sbGroupFields.Append($"[{groupField.LookupTable}].[{groupField.LookupField}]");
+                  else
+                    sbGroupFields.Append(groupField.Field);
+
+                  commaPlaceHolder = ", ";
+              }
             }
             return sbGroupFields.ToString();
         }
@@ -197,10 +205,18 @@ namespace Bepos.Reporting.Engine
             var commaPlaceHolder = string.Empty;
             foreach (var orderField in criteria.OrderBy)
             {
+              if (!string.IsNullOrEmpty(orderField.Field))
+              {
                 if (orderField.Field == "default") continue;
+
                 sbOrderFields.Append(commaPlaceHolder);
-                sbOrderFields.Append($"[{criteria.MainTable}].[{orderField.Field}]");
+                if (!string.IsNullOrEmpty(orderField.LookupTable) && !string.IsNullOrEmpty(orderField.LookupField))
+                  sbOrderFields.Append($"[{orderField.LookupTable}].[{orderField.LookupField}]");
+                else
+                  sbOrderFields.Append($"[{criteria.MainTable}].[{orderField.Field}]");
+
                 commaPlaceHolder = ", ";
+              }
             }
             return sbOrderFields.ToString();
         }

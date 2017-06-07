@@ -13,13 +13,15 @@
         this.selectedId = "";
         this.currentPage = 1;
         this.recordsPerPage = 3;
-        this.GroupBy = "default";
-        this.OrderBy = "default";
+        this.dummyGroupBy = "default";
+        this.dummyOrderBy = "default";
         this.init = function () {
             
             var defaultField;
             defaultField = CriteriaField("default", "default");
             defaultField.isDisplay = false;
+            defaultField.isValueFilter = false;
+            defaultField.isRangeFilter = false;
             defaultField.isGroupChecked = true;
             defaultField.isOrderChecked = true;
             this.CriteriaFields.push(defaultField);
@@ -186,6 +188,6 @@
         };
         //-- -------------------------------------------- --
 
-      this.init();
+        this.init();
 
     } ] );

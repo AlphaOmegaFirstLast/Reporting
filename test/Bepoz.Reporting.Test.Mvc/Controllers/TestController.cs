@@ -65,51 +65,53 @@ namespace Bepoz.Reporting.Test.Mvc.Controllers
 
         }
 
-        //    [HttpPost("GetReportsNotParamaterised")]
-        //    public async Task<string> GetReportsNotParamaterised([FromBody] ReportCriteria criteria)
-        //    {
-        //        var resultCriteria = _reportContext.GetCriteriaQuery(criteria);
-        //        var resultReport = await _reportContext.SqlQuery<string>(resultCriteria.Item1);
+        [HttpPost("GetReportsInXml")]
+        public async Task<string> GetReportsInXml([FromBody] ReportCriteria criteria)
+        {
+          var resultCriteria = _reportEngine.BuildQuery(criteria);
+          var resultQuery = await _reportEngine.ExecuteQuery<string>(resultCriteria.SqlStatement, resultCriteria.SqlParameters);
 
-        //        var doc = new XmlDocument();
-        //        doc.LoadXml(resultReport[0]);
-        //        var jsonResult = JsonConvert.SerializeXmlNode(doc);
-        //        //remove @ from output json
-        //        var jsonText = Regex.Replace(jsonResult, "(?<=\")(@)(?!.*\":\\s )", string.Empty, RegexOptions.IgnoreCase);
-        //        return jsonText;
-        //    }
-
-        //    [HttpPost("GetReportsInXml")]
-        //    public async Task<string> GetReportsInXml([FromBody] ReportCriteria criteria)
-        //    {
-        //        var result = _reportContext.GetCriteriaQuery(criteria);
-        //        var resultReport = await _reportContext.SqlQuerySerialized(result.Item1, result.Item2);
-
-        //        return resultReport;
-        //    }
-
-        //    // POST api/values
-        //    [HttpPost("GetAll")]
-        //    public async Task<List<Employee>> GetAll([FromBody] object criteria)
-        //    {
-        //        var result = await _reportContext.SqlQuery<Employee>("select * from Employees");
-        //        return result;
-        //    }
+          return resultQuery;
+        }
 
 
-        //    [HttpGet("GetEmp1")]
-        //    public async Task<List<string>> GetEmp1()
-        //    {
-        //        var result = await _reportContext.SqlQuery<string>("select id,name from Employees where id>@myid FOR XML RAW ('result'), ROOT ('results');" , 2);
-        //        return result;
-        //    }
+    //    [HttpPost("GetReportsNotParamaterised")]
+    //    public async Task<string> GetReportsNotParamaterised([FromBody] ReportCriteria criteria)
+    //    {
+    //        var resultCriteria = _reportContext.GetCriteriaQuery(criteria);
+    //        var resultReport = await _reportContext.SqlQuery<string>(resultCriteria.Item1);
 
-        //    [HttpGet("GetEmp2")]
-        //    public async Task<List<string>> GetEmp2()
-        //    {
-        //        var result = await _reportContext.SqlQuery<string>("select * from Employees FOR XML RAW ('Employee'), ROOT ('Root');");
-        //        return result;
-        //    }
-    }
+    //        var doc = new XmlDocument();
+    //        doc.LoadXml(resultReport[0]);
+    //        var jsonResult = JsonConvert.SerializeXmlNode(doc);
+    //        //remove @ from output json
+    //        var jsonText = Regex.Replace(jsonResult, "(?<=\")(@)(?!.*\":\\s )", string.Empty, RegexOptions.IgnoreCase);
+    //        return jsonText;
+    //    }
+
+
+    //    // POST api/values
+    //    [HttpPost("GetAll")]
+    //    public async Task<List<Employee>> GetAll([FromBody] object criteria)
+    //    {
+    //        var result = await _reportContext.SqlQuery<Employee>("select * from Employees");
+    //        return result;
+    //    }
+
+
+    //    [HttpGet("GetEmp1")]
+    //    public async Task<List<string>> GetEmp1()
+    //    {
+    //        var result = await _reportContext.SqlQuery<string>("select id,name from Employees where id>@myid FOR XML RAW ('result'), ROOT ('results');" , 2);
+    //        return result;
+    //    }
+
+    //    [HttpGet("GetEmp2")]
+    //    public async Task<List<string>> GetEmp2()
+    //    {
+    //        var result = await _reportContext.SqlQuery<string>("select * from Employees FOR XML RAW ('Employee'), ROOT ('Root');");
+    //        return result;
+    //    }
+  }
 }
 
